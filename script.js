@@ -1,4 +1,4 @@
-$(function(){
+
  /*
 Atlantis by Audionautix (http://audionautix.com) is part of the YouTube Audio Library (https://www.youtube.com/audiolibrary/music) and it's licensed under a Creative Commons license (https://creativecommons.org/licenses/by/3.0/deed.en_US).
 */
@@ -530,4 +530,4 @@ window.requestAnimFrame = ( function() {
 
 init();
 
-});
+
