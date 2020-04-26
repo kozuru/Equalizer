@@ -1,5 +1,4 @@
-
- /*
+/*
 Atlantis by Audionautix (http://audionautix.com) is part of the YouTube Audio Library (https://www.youtube.com/audiolibrary/music) and it's licensed under a Creative Commons license (https://creativecommons.org/licenses/by/3.0/deed.en_US).
 */
 //---
@@ -42,26 +41,26 @@ function init() {
   canvas = document.createElement( 'canvas' );
   canvas.addEventListener( 'mousedown', mouseDownHandler, false );
   canvas.addEventListener( 'mousemove', mouseMoveHandler, false );
-  canvas.addEventListener( 'mouseenter', mouseEnterHandler, false );
-  canvas.addEventListener( 'mouseleave', mouseLeaveHandler, false );
+  canvas.addEventListener( 'mouseenter', mouseEnterHandler, false ); 
+  canvas.addEventListener( 'mouseleave', mouseLeaveHandler, false ); 
 
   document.body.appendChild( canvas );
 
   context = canvas.getContext( '2d' );
 
-    window.addEventListener( 'resize', onResize );
-
+	window.addEventListener( 'resize', onResize );
+  
   onResize();
 
   addParticles( particles, 1 );
   addParticles( particlesSky, -1 );
-
+  
   render();
   render();
 
   context.putImageData( imageData, 0, 0 );
-
-    btStart = document.getElementById( 'btStartAudioVisualization' );
+  
+	btStart = document.getElementById( 'btStartAudioVisualization' );
   btStart.addEventListener( 'mousedown', userStart, false );
 
 };
@@ -70,11 +69,11 @@ function init() {
 
 function userStart() {
 
-    btStart.removeEventListener( 'mousedown', userStart );
+	btStart.removeEventListener( 'mousedown', userStart );
   btStart.style.display = 'none';
 
-    audioSetup();
-    animate();
+	audioSetup();
+	animate();
 
 };
 
@@ -82,7 +81,7 @@ function userStart() {
 
 function audioSetup() {
 
-    audio = new Audio();
+	audio = new Audio();
   audio.src = 'http://nkunited.de/ExternalImages/jsfiddle/audio/Atlantis-Audionautix-_192kbit_AAC_.mp3';
   audio.controls = false;
   audio.loop = true;
@@ -97,7 +96,7 @@ function audioSetup() {
   analyser.fftSize = 512 * 32;//circleSegments * 32;
   analyserBufferLength = analyser.frequencyBinCount;
 
-  audioSrc = audioContext.createMediaElementSource( audio );
+  audioSrc = audioContext.createMediaElementSource( audio ); 
   audioSrc.connect( analyser );
 
 };
@@ -141,7 +140,7 @@ function drawLine( x1, y1, x2, y2, r, g, b, a ) {
   var err = dx - dy;
 
   var lx = x1;
-  var ly = y1;
+  var ly = y1;    
 
   while ( true ) {
 
@@ -156,17 +155,17 @@ function drawLine( x1, y1, x2, y2, r, g, b, a ) {
 
     var e2 = 2 * err;
 
-    if ( e2 > -dx ) {
+    if ( e2 > -dx ) { 
 
-      err -= dy;
-      lx += sx;
+      err -= dy; 
+      lx += sx; 
 
     }
 
-    if ( e2 < dy ) {
+    if ( e2 < dy ) { 
 
-      err += dx;
-      ly += sy;
+      err += dx; 
+      ly += sy; 
 
     }
 
@@ -191,39 +190,39 @@ function addParticle( x, y, z, index ) {
 };
 
 function addParticles( array, dir ) {
-
+	
   var audioBufferIndexMin = 8;
   var audioBufferIndexMax = 512;
-    var audioBufferIndex = audioBufferIndexMin;
-
-  for ( var z = -fov; z < fov; z += 5 ) {
+	var audioBufferIndex = audioBufferIndexMin;
+	
+  for ( var z = -fov; z < fov; z += 5 ) { 
 
     var particlesRow = [];
 
-    for ( var x = -fov; x < fov; x += 5 ) {
-
-        var yPos = 0;
-
+    for ( var x = -fov; x < fov; x += 5 ) { 
+    
+    	var yPos = 0;
+      
       if ( dir > 0 ) {
-
-        yPos = Math.random() * 5 + particleDistanceTop;
-
+      
+      	yPos = Math.random() * 5 + particleDistanceTop;
+      
       } else {
-
-        yPos = Math.random() * 5 - particleDistanceTop;
-
+      
+      	yPos = Math.random() * 5 - particleDistanceTop;
+      
       }
 
       var particle = addParticle( x, yPos, z, audioBufferIndex );
 
-      particlesRow.push( particle );
-
+      particlesRow.push( particle ); 
+      
       audioBufferIndex++;
-
+      
       if ( audioBufferIndex > audioBufferIndexMax) {
-
-        audioBufferIndex = audioBufferIndexMin;
-
+      
+      	audioBufferIndex = audioBufferIndexMin;
+      
       }
 
     }
@@ -237,11 +236,11 @@ function addParticles( array, dir ) {
 //---
 
 function onResize(){
-
+  	
   w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-    center2D = { x:w / 2, y:h / 2 };
+	center2D = { x:w / 2, y:h / 2 };
 
   canvas.width = w;
   canvas.height = h;
@@ -304,38 +303,38 @@ function getMousePos( canvas, event ) {
 
 function render() {
 
-    var frequencySource;
-
-    if ( analyser ) {
-
-    frequencySource = new Uint8Array( analyser.frequencyBinCount );
+	var frequencySource;
+	
+	if ( analyser ) {
+  
+  	frequencySource = new Uint8Array( analyser.frequencyBinCount );
 
     analyser.getByteFrequencyData( frequencySource );
-
+  
   }
 
   //---
 
-    var sortArray = false;
+	var sortArray = false;
 
   //---
 
   for ( var i = 0, l = particles.length; i < l; i++ ) {
 
     var particlesRow = particles[ i ];
-        var particlesRowBack;
+		var particlesRowBack;
 
-        if ( i > 0 ) {
+		if ( i > 0 ) {
 
-            particlesRowBack = particles[ i - 1 ];
+			particlesRowBack = particles[ i - 1 ];
 
-        }
+		}
 
     for ( var j = 0, k = particlesRow.length; j < k; j++ ) {
 
       var particle = particlesRow[ j ];
 
-      var scale = fov / ( fov + particle.z );
+      var scale = fov / ( fov + particle.z ); 
 
       particle.x2d = ( particle.x * scale ) + center2D.x;
       particle.y2d = ( particle.y * scale ) + center2D.y;
@@ -343,11 +342,11 @@ function render() {
       //---
 
       particle.z -= speed;
-
+      
       if ( analyser ) {
-
+      
         var frequency = frequencySource[ particle.index ];
-        var frequencyAdd = frequency / 10;
+      	var frequencyAdd = frequency / 10;
 
         particle.y = frequencyAdd + particleDistanceTop;
 
@@ -362,7 +361,7 @@ function render() {
       }
 
       //---
-
+      
       var lineColorValue;
 
       if ( j > 0 ) {
@@ -375,15 +374,15 @@ function render() {
 
       }
 
-            if ( i > 0 && i < l - 1 ) {
+			if ( i > 0 && i < l - 1 ) {
 
-                var pB = particlesRowBack[ j ];
+				var pB = particlesRowBack[ j ];
 
-                drawLine( particle.x2d | 0, particle.y2d | 0, pB.x2d | 0, pB.y2d | 0, 0, lineColorValue, 0, 255 );
+				drawLine( particle.x2d | 0, particle.y2d | 0, pB.x2d | 0, pB.y2d | 0, 0, lineColorValue, 0, 255 );
 
-            }
+			}
 
-    }
+    }             
 
   }
 
@@ -399,25 +398,25 @@ function render() {
     } );
 
   }
-
+  
   //---
 
   for ( var i = 0, l = particlesSky.length; i < l; i++ ) {
 
     var particlesRow = particlesSky[ i ];
-        var particlesRowBack;
+		var particlesRowBack;
 
-        if ( i > 0 ) {
+		if ( i > 0 ) {
 
-            particlesRowBack = particlesSky[ i - 1 ];
+			particlesRowBack = particlesSky[ i - 1 ];
 
-        }
+		}
 
     for ( var j = 0, k = particlesRow.length; j < k; j++ ) {
 
       var particle = particlesRow[ j ];
 
-      var scale = fov / ( fov + particle.z );
+      var scale = fov / ( fov + particle.z ); 
 
       particle.x2d = ( particle.x * scale ) + center2D.x;
       particle.y2d = ( particle.y * scale ) + center2D.y;
@@ -425,11 +424,11 @@ function render() {
       //---
 
       particle.z -= speed;
-
+      
       if ( analyser ) {
-
+      
         var frequency = frequencySource[ particle.index ];
-        var frequencyAdd = frequency / 10;//circle.frequencyFactor;
+      	var frequencyAdd = frequency / 10;//circle.frequencyFactor;
 
         particle.y = -frequencyAdd - particleDistanceTop;
 
@@ -444,7 +443,7 @@ function render() {
       }
 
       //---
-
+      
       var lineColorValue;
 
       if ( j > 0 ) {
@@ -457,17 +456,17 @@ function render() {
 
       }
 
-            if ( i > 0 && i < l - 1 ) {
+			if ( i > 0 && i < l - 1 ) {
 
-                var pB = particlesRowBack[ j ];
+				var pB = particlesRowBack[ j ];
 
-                // v1 = { x:particle.x2d | 0, y:particle.y2d | 0 };
-                // v2 = { x:pB.x2d | 0, y:pB.y2d | 0 };
+				// v1 = { x:particle.x2d | 0, y:particle.y2d | 0 };
+				// v2 = { x:pB.x2d | 0, y:pB.y2d | 0 };
 
-                //var lineColorValue = Math.round( ( ( i - ( fov / 5 ) ) / l ) * 255 );
+				//var lineColorValue = Math.round( ( ( i - ( fov / 5 ) ) / l ) * 255 );
 
-                //drawLine( v1, v2, lineColorValue, lineColorValue, lineColorValue, 255 );
-                drawLine( particle.x2d | 0, particle.y2d | 0, pB.x2d | 0, pB.y2d | 0, 0, Math.round( lineColorValue / 2 ), lineColorValue, 255 );
+				//drawLine( v1, v2, lineColorValue, lineColorValue, lineColorValue, 255 );
+				drawLine( particle.x2d | 0, particle.y2d | 0, pB.x2d | 0, pB.y2d | 0, 0, Math.round( lineColorValue / 2 ), lineColorValue, 255 );
 
         }
 
@@ -486,7 +485,7 @@ function render() {
     } );
 
   }
-
+  
   //---
 
   if ( mouseActive ) {
@@ -506,9 +505,9 @@ function render() {
 function animate() {
 
   clearImageData();
-
+  
   render();
-
+  
   context.putImageData( imageData, 0, 0 );
 
   requestAnimationFrame( animate );
@@ -529,5 +528,3 @@ window.requestAnimFrame = ( function() {
 //---
 
 init();
-
-
