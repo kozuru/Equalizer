@@ -83,7 +83,7 @@ function userStart() {
 function audioSetup() {
 
     audio = new Audio();
-  audio.src = 'DA PUMP _ U.S.A..mp3';
+  audio.src = 'http://nkunited.de/ExternalImages/jsfiddle/audio/Atlantis-Audionautix-_192kbit_AAC_.mp3';
   audio.controls = false;
   audio.loop = true;
   audio.autoplay = true;
